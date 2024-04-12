@@ -1,0 +1,89 @@
+version: "3.2"  # Specify Docker Compose version
+
+volumes:
+  nexus-data: {}  # Define empty volume for Nexus data
+  jenkins-data: {}  # Define empty volume for Jenkins data
+  # elasticsearch_data:  {}
+  # postgresql_data: {}
+
+services:
+  jenkins:
+    container_name: jenkins
+    hostname: jenkins
+    user: root
+    privileged: true
+    image: jenkins/jenkins:latest  # Use latest Jenkins image
+    ports:
+      - 8085:8080  # Map container port 8080 to host port 8080 (Jenkins UI)
+      - 50000:50000
+    volumes:
+      - jenkins-data:/var/jenkins_home  # Persistent storage for Jenkins data
+    environment:
+      - JENKINS_HOME=/var/jenkins_home
+    # restart: unless-stopped  # Restart Jenkins container unless manually stopped
+
+  # sonarqube:
+  #   container_name: sonarqube
+  #   hostname: sonarqube
+  #   image: sonarqube:latest
+  #   user: "1000:1000"
+  #   depends_on:
+  #     - db
+  #     - elasticsearch
+  #   ports:
+  #     - 9000:9000
+  #   volumes:
+  #     - ./sonarqube/data:/opt/sonarqube/data
+  #     - ./sonarqube/extensions:/opt/sonarqube/extensions
+  #     - ./sonarqube/logs:/opt/sonarqube/logs
+  #     # - sonarqube_data:/bitnami/sonarqube/data
+  #   environment:
+  #     # - SONARQUBE_DATABASE_HOST=db
+  #     # - SONARQUBE_DATABASE_PORT_NUMBER=5432
+  #     # - SONARQUBE_DATABASE_USER=sonar
+  #     # - SONARQUBE_DATABASE_PASSWORD=sonar
+  #     # - SONARQUBE_DATABASE_NAME=sonar
+  #     # - SONARQUBE_ELASTICSEARCH_PORT_NUMBER=9200
+  #     - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
+  #     - SONAR_JDBC_USERNAME=sonar
+  #     - SONAR_JDBC_PASSWORD=sonar
+  #     # - SONAR_SEARCH_PORT=9200
+
+  # elasticsearch:
+  #   container_name: elasticsearch
+  #   hostname: elasticsearch
+  #   image: bitnami/elasticsearch:latest
+  #   ports:
+  #     - 9200:9200
+  #     - 9300:9300
+  #   volumes:
+  #     - elasticsearch_data:/bitnami/elasticsearch/data
+  #   environment:
+  #     - ELASTICSEARCH_USERNAME=sonar
+  #     - ELASTICSEARCH_PASSWORD=sonar
+
+  # db:
+  #   container_name: db
+  #   hostname: db
+  #   image: postgres
+  #   ports:
+  #     - 5430:5432
+  #   environment:
+  #     - POSTGRES_USER=sonar
+  #     - POSTGRES_PASSWORD=sonar
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #   volumes:
+  #     - postgresql_data:/var/lib/postgresql/data
+  #     # - postgresql_data:/bitnami/postgresql/data
+
+  nexus:
+    container_name: nexus
+    hostname: nexus
+    image: sonatype/nexus3:latest  # Use latest Nexus image
+    ports:
+      - 8081:8081  # Map container port 8081 to host port 8081 (Nexus UI)
+    volumes:
+      - ./nexus-data:/var/sonatype-work/nexus3  # Persistent storage for Nexus data
+    environment:
+      - SONATYPE_NE=nexus  # Set initial admin password (change for production)
+    # restart: unless-stopped
