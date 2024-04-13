@@ -20,7 +20,7 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-                sh 'mvn test'
+                sh 'mvn -f ./pom.xml test'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
 
         stage('Build Artifact') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn -f ./pom.xml clean package'
             }
         }
 
