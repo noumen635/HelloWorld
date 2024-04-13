@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'maven'
+        maven 'maven-3.9.6'
     }
 
     stages {
@@ -20,8 +20,7 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-//                 sh 'mvn test'
-                echo 'Performing unit tests'
+                sh 'mvn test'
             }
         }
 
