@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    // tools {
-    //      maven 'maven-3.9.6'
-    //  }
+    tools {
+        maven 'maven-3.9.6'
+    }
 
     stages {
         stage('Cleanup Workspace') {
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-                sh 'mvn -f ./pom.xml test'
+                sh 'mvn test'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
 
         stage('Build Artifact') {
             steps {
-                sh 'mvn -f ./pom.xml clean package'
+                sh 'mvn clean package'
             }
         }
 
