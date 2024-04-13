@@ -12,15 +12,9 @@ pipeline {
             }
         }
 
-        stage('Git Checkout') {
-            steps {
-                git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/noumen635/workshop-lifecycle.git'
-            }
-        }
-
         stage('Code Analysis') {
             steps {
-                sh 'Performing code quality checks'
+                echo 'Performing code quality checks'
             }
         }
 
