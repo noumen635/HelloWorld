@@ -6,11 +6,11 @@ pipeline {
     }
 
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
+//         stage('Cleanup Workspace') {
+//             steps {
+//                 deleteDir()
+//             }
+//         }
 
         stage('Code Analysis') {
             steps {
