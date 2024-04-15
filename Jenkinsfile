@@ -26,7 +26,6 @@ pipeline {
 
         stage('Build Artifact') {
             steps {
-                sh 'mvn --version'
                 sh 'mvn clean package'
             }
         }
@@ -38,7 +37,7 @@ pipeline {
             }
         }
 
-        stage('Deploy on DockerHub') {
+        stage('Push on DockerHub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DOCKER_ID', passwordVariable: 'DOCKER_PWD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh 'docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PWD}'
@@ -48,10 +47,17 @@ pipeline {
             }
         }
 
+        stage('Run Container') {
+            steps {
+                sh 'docker run noumendarryl/helloworld:latest'
+            }
+        }
+
         stage('Email Notification') {
             steps {
-                mail body: '${PROJECT_NAME} - BUILD # ${BUILD_NUMBER} - ${BUILD_STATUS} : Check console output at $BUILD_URL to view results. Please note this is an automated email.',
-                subject: '${PROJECT_NAME} - BUILD # ${BUILD_NUMBER} - ${BUILD_STATUS}',
+                mail body: ''$PROJECT_NAME - BUILD # $BUILD_NUMBER - $BUILD_STATUS : Check console output at $BUILD_URL to view results. Please note this is an automated email.'',
+                subject: ''$PROJECT_NAME - BUILD # $BUILD_NUMBER - $BUILD_STATUS !'',
+                from: 'no-reply@jenkins.io'
                 to: 'noumendarryl@gmail.com'
             }
         }
