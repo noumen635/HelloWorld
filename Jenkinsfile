@@ -39,8 +39,8 @@ pipeline {
 
         stage('Deploy on DockerHub') {
             steps {
-                withCredentials([string(credentialsId: 'DOCKER_ID', variable: 'DOCKER_PWD')]) {
-                    sh 'docker login -u noumendarryl -p ${DOCKER_PWD}'
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_ID', passwordVariable: 'DOCKER_PWD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh 'docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PWD}'
                 }
                 sh 'docker push noumendarryl/helloworld:1.${BUILD_NUMBER}'
                 sh 'docker push noumendarryl/helloworld:latest'
