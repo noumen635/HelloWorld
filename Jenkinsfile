@@ -52,7 +52,7 @@ pipeline {
             steps {
                 emailext body: '$PROJECT_NAME - BUILD # $BUILD_NUMBER - $BUILD_STATUS : Check console output at $BUILD_URL to view results. Please note this is an automated email.',
                 subject: '$PROJECT_NAME - BUILD # $BUILD_NUMBER - $BUILD_STATUS',
-                to: 'ndrayl70@gmail.com'
+                to: 'noumendarryl@gmail.com'
             }
         }
     }
