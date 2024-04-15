@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'maven-3.9.6'
-        dockerTool 'docker-latest'
+        // dockerTool 'docker-latest'
     }
 
     stages {
