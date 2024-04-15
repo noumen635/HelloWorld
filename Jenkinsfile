@@ -32,8 +32,8 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                sh 'docker buildx build -t noumendarryl/helloworld:1.${BUILD_NUMBER} . '
-                sh 'docker buildx build -t noumendarryl/helloworld:latest . '
+                sh 'docker build -t noumendarryl/helloworld:1.${BUILD_NUMBER} . '
+                sh 'docker build -t noumendarryl/helloworld:latest . '
             }
         }
 
