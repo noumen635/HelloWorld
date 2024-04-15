@@ -32,8 +32,8 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t noumendarryl/helloworld:1.${BUILD_NUMBER} . '
-                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t noumendarryl/helloworld:latest . '
+                sh 'docker buildx build -t noumendarryl/helloworld:1.${BUILD_NUMBER} . '
+                sh 'docker buildx build -t noumendarryl/helloworld:latest . '
             }
         }
 
