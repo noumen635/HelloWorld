@@ -4,4 +4,4 @@ COPY target/*.jar helloworld.jar
 
 ENTRYPOINT [ "java", "-jar", "/helloworld.jar" ]
 
-EXPOSE 80
+EXPOSE 8085

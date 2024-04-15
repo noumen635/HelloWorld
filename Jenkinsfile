@@ -3,15 +3,10 @@ pipeline {
 
     tools {
         maven 'maven-3.9.6'
+        docker 'docker-latest'
     }
 
     stages {
-//         stage('Cleanup Workspace') {
-//             steps {
-//                 deleteDir()
-//             }
-//         }
-
         stage('Code Analysis') {
             steps {
                 echo 'Performing code quality checks'
@@ -20,7 +15,7 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-                sh 'mvn -e test'
+                sh 'mvn test'
             }
         }
 
@@ -32,7 +27,7 @@ pipeline {
 
         stage('Build Artifact') {
             steps {
-                sh 'mvn -e clean package'
+                sh 'mvn clean package'
             }
         }
 
