@@ -3,7 +3,6 @@ pipeline {
 
     tools {
         maven 'maven-3.9.6'
-        // dockerTool 'docker-latest'
     }
 
     stages {
@@ -33,7 +32,8 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                sh 'docker build -t noumendarryl/helloworld:1.${BUILD_NUMBER} --pull --no-cache . '
+                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t noumendarryl/helloworld:1.${BUILD_NUMBER} . '
+                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t noumendarryl/helloworld:latest . '
             }
         }
 
