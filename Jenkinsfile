@@ -12,7 +12,7 @@ pipeline {
                     def scanner = tool 'scanner-5.0.1'
                     echo "${scanner}"
                     withSonarQubeEnv('MySonar') {
-                        sh '${scanner}/bin/sonar-scanner'
+                        sh "${scanner}/bin/sonar-scanner"
                     }
                 }
             }
