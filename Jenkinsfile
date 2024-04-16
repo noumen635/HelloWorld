@@ -8,7 +8,13 @@ pipeline {
     stages {
         stage('Code Analysis') {
             steps {
-                echo 'Performing code quality checks'
+                script {
+                    def scanner = tool 'scanner-5.0.1'
+                    echo "${scanner}"
+                    withSonarQubeEnv('MySonar') {
+                        sh '${scanner}/bin/sonar-scanner'
+                    }
+                }
             }
         }
 
