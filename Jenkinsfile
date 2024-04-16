@@ -55,8 +55,8 @@ pipeline {
 
         stage('Email Notification') {
             steps {
-                mail body: "$JOB_NAME - BUILD # $BUILD_NUMBER - $BUILD_STATUS : Check console output at $BUILD_URL to view results. Please note this is an automated email.",
-                subject: "$JOB_NAME - BUILD # $BUILD_NUMBER - $BUILD_STATUS !",
+                mail body: "$JOB_NAME - BUILD # $BUILD_NUMBER - SUCCESS : Check console output at $BUILD_URL to view results. Please note this is an automated email.",
+                subject: "$JOB_NAME - BUILD # $BUILD_NUMBER - SUCCESS !",
                 from: 'no-reply@jenkins.io',
                 to: 'noumendarryl@gmail.com'
             }
